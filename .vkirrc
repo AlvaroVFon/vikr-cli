@@ -1,0 +1,10 @@
+author: Álvaro Villamarín
+debug: false
+license: MIT
+project_name: MyVikrProject
+scaffold:
+    include_git: true
+    language: go
+    output_dir: ./output
+    type: api
+version: 0.1.0
