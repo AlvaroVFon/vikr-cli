@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"os"
 
-	"vikr-cli/internal/config"
+	"github.com/AlvaroVFon/vikr-cli/internal/config"
 
 	"github.com/spf13/cobra"
 )
