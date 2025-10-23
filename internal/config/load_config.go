@@ -9,6 +9,10 @@ import (
 	"github.com/spf13/viper"
 )
 
+const (
+	DefaultConfigFileName = ".vikrrc"
+)
+
 type ScaffoldConfig struct {
 	Type       string `mapstructure:"type"        validate:"required,oneof=api service lib cli"`
 	Language   string `mapstructure:"language"    validate:"required,oneof=go ts"`
@@ -40,7 +44,6 @@ var defaultConfig = &Config{
 }
 
 var ConfigPaths = []string{
-	".",
 	".vikrrc",
 	"vikr.yaml",
 	"vikr.yml",
@@ -118,22 +121,22 @@ func GenerateDefaultConfigYAML() (string, error) {
 	}
 	viper.SetConfigType("yaml")
 	SetDefaults(defaultConfig)
-	if err := viper.WriteConfigAs(".vkirrc"); err != nil {
+	if err := viper.WriteConfigAs(DefaultConfigFileName); err != nil {
 		return "", err
 	}
-	return ".vikrrc", nil
+	return DefaultConfigFileName, nil
 }
 
 // ConfigExists checks if any of the provided config file paths exist.
 func ConfigExists(paths []string) (string, bool) {
 	for _, path := range paths {
 		path = os.ExpandEnv(path)
-
+		fmt.Printf("🔍 Comprobando existencia de %s...\n", path)
 		if _, err := os.Stat(path); err == nil {
 			return path, true // existe
 		} else if !os.IsNotExist(err) {
+			// For other errors (like permission errors), we print a warning but don't consider the file as existing.
 			fmt.Printf("⚠️ Error comprobando %s: %v\n", path, err)
-			return path, true
 		}
 	}
 	return "", false // ninguno existe

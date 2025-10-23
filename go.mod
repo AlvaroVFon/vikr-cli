@@ -1,4 +1,4 @@
-module vikr-cli
+module github.com/AlvaroVFon/vikr-cli
 
 go 1.25.3
 

@@ -1,3 +1,5 @@
 
 run:
-	go run ./cmd/vikr/main.go
+	./build/vikr
+build:
+	go build -o vikr
